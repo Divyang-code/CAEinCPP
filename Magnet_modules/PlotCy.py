@@ -174,6 +174,15 @@ def disk(ax, Ri, Rf, ang_i, ang_f, center, Euler, d):
 #%% Draw electro-magnets
 
 if __name__=='__main__':
+
+    # Read magnetic field
+    import pandas as pd
+
+    df = pd.read_csv('MAG_DATA.csv', sep='\t', lineterminator='\n')
+    
+    Bx = array(df['Bx (T)'])
+    By = array(df['By (T)'])
+    Bz = array(df['Bz (T)'])
     
     if need_plot == 1:
         
@@ -232,15 +241,6 @@ if __name__=='__main__':
                 disk(ax, 0, cy_ro[i], 0, 2* pi, cy_center[i], cy_operator[i],-cy_l[i]/2 )
                 roll(ax, cy_ro[i],-cy_l[i]/2, cy_l[i]/2, 0, 2* pi, cy_center[i], cy_operator[i])
 
-        # Read magnetic field
-        import pandas as pd
-
-        df = pd.read_csv('MAG_DATA.csv', sep='\t', lineterminator='\n')
-        
-        Bx = array(df['Bx (T)'])
-        By = array(df['By (T)'])
-        Bz = array(df['Bz (T)'])
-
         B = array([Bx, By, Bz])
 
         # Sketch the field vectors
@@ -273,6 +273,8 @@ if __name__=='__main__':
         
         import matplotlib.pyplot as plt
         from matplotlib import cm
+
+        B_MAGNITUDE = sqrt(Bx**2 + By**2 + Bz**2)
         
         plt.figure('Contour Plot |B|')
         cs = plt.contour( cont_x, cont_y, B_MAGNITUDE.reshape([cont_pp,cont_qq]), 100, cmap = cm.jet)
