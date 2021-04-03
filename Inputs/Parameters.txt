@@ -1,0 +1,8 @@
+Total Coils         = 6
+Turns In Coil       = 28
+Major Radius        = 30e-2
+TF OffSet           = 2e-2
+Inner Radius        = 12e-2
+Outer Radius        = 15.5e-2
+Thickness           = 5e-2
+Current in one turn = 10
