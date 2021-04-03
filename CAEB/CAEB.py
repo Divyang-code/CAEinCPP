@@ -119,14 +119,16 @@ class Coil:
 
 #%% Inputs
 
-Total_Coils = 6
-TurnsInCoil = 28
-MajorRadius = 30e-2
-TF_OffSet   = 2e-2
-InnerRadius = 12e-2
-OuterRadius = 15.5e-2
-thickness   = 5e-2
-I_in_1_turn = 10
+if __name__ == '__main__':
+    
+    Total_Coils = 6
+    TurnsInCoil = 28
+    MajorRadius = 30e-2
+    TF_OffSet   = 2e-2
+    InnerRadius = 12e-2
+    OuterRadius = 15.5e-2
+    thickness   = 5e-2
+    I_in_1_turn = 10
 
-Make_Coils = Coil(Total_Coils, TurnsInCoil, MajorRadius, TF_OffSet, InnerRadius, OuterRadius, thickness, I_in_1_turn)
-Make_Coils.Write_data()
+    Make_Coils = Coil(Total_Coils, TurnsInCoil, MajorRadius, TF_OffSet, InnerRadius, OuterRadius, thickness, I_in_1_turn)
+    Make_Coils.Write_data()
