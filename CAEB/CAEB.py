@@ -113,10 +113,8 @@ class Coil:
         Out = Out.rename(columns={'empty1':'', 'empty2':'','empty3':''})
         Out = Out.transpose()
 
-        print(Out)
-        
         writer = pd.ExcelWriter('Builder.xlsx', engine='xlsxwriter')
-        Out.to_excel(writer, index = False, sheet_name = 'Cir with Ract')
+        Out.to_excel(writer, index = False, sheet_name = 'CirRact')
         writer.save()
 
 #%% Inputs
