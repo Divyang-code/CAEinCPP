@@ -7,26 +7,30 @@ Created on Fri Apr  2 22:28:23 2021
 """
 import pandas as pd
 import numpy as np
+import os
 
 #%% Generate data
 
 class Coil:
     
-    def __init__(self, Total_Coils, TurnsInCoil, MajorRadius, TF_OffSet, InnerRadius, OuterRadius, thickness, I_in_1_turn):
+    def __init__(self):
         
-        self.Total_Coils = Total_Coils
-        self.TurnsInCoil = TurnsInCoil
+        Path = os.getcwd()
+        Path = Path[:-4] 				# 4 is the lenght of "CAEB" word
 
-        self.MajorRadius = MajorRadius
-        self.TF_OffSet   = TF_OffSet
+        data = pd.read_csv(Path + '/Inputs/Parameters.txt', sep = '=', header = None)
+        data = np.array( data.loc[:, 1] )
 
-        self.InnerRadius = InnerRadius
-        self.OuterRadius = OuterRadius
-        self.thickness   = thickness
-
-        self.I_in_1_turn = I_in_1_turn
+        self.Total_Coils = int(data[0])
+        self.TurnsInCoil = int(data[1])
+        self.MajorRadius = data[2]
+        self.TF_OffSet   = data[3]
+        self.InnerRadius = data[4]
+        self.OuterRadius = data[5]
+        self.thickness   = data[6]
+        self.I_in_1_turn = data[7]
         
-        print('Number of components: ' + str(Total_Coils))
+        print('Number of components: ' + str(self.Total_Coils))
         print('Copy this number and Builder.xlsx data into CAE_1.xlsx')
     
     def Data_ring(self):
@@ -120,15 +124,6 @@ class Coil:
 #%% Inputs
 
 if __name__ == '__main__':
-    
-    Total_Coils = 6
-    TurnsInCoil = 28
-    MajorRadius = 30e-2
-    TF_OffSet   = 2e-2
-    InnerRadius = 12e-2
-    OuterRadius = 15.5e-2
-    thickness   = 5e-2
-    I_in_1_turn = 10
 
-    Make_Coils = Coil(Total_Coils, TurnsInCoil, MajorRadius, TF_OffSet, InnerRadius, OuterRadius, thickness, I_in_1_turn)
+    Make_Coils = Coil()
     Make_Coils.Write_data()
