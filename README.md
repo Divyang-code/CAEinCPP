@@ -30,6 +30,15 @@ CAE code is written in Python and C++ programming languages.
 - In Ubuntu g++ is preinstalled. Users can check its version by typing `g++ --version` in the terminal.
 - Windows users can follow the procedure explained in the following video by LearningLad: https://www.youtube.com/watch?v=0HD0pqVtsmw
 
+## Inputs
+
+- This code requires two input files in the popular Microsoft Excel format, named, CAE_1.xlsx and CAE_2.xlsx. 
+- The SI unit system is chosen for the inputs except for the angles (rather than radians, degrees are used to avoid fractions).
+- The user can enter the data regarding five types of electromagnet elements in the CAE_1.xlsx. These data cover the dimensions, the locations in space (i.e., centers and Euler angles), and the currents (or the current densities).
+- In CAE_2.xlsx, the user has to enter the data regarding the space points where the magnetic field is required. 
+- To adjust the permeability of space, Relative Permeability option is incorporated.
+- Various logical plotting options viz. 3D plots, contour plots, and current direction can be entered.
+
 ## CAEB
 
 In most of the electromagnetic systems, the coils are arranged in a symmetric manner, for example, Tokamak. The CAEB — CAE Builder code takes advantage of the symmetry and minimizes the complexities of generating the input Excel files for the coils. The CAEB takes inputs for one coil and number of coils in a system, and generates an output file, Builder.xlsx with the data of all the coils.
