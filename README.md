@@ -38,6 +38,13 @@ CAE code is written in Python and C++ programming languages.
 - To adjust the permeability of space, Relative Permeability option is incorporated.
 - Various logical plotting options viz. 3D plots, contour plots, and current direction can be entered.
 
+## Magnet modules
+
+Magnet modules is the most important part of CAE code. It contains two python files Inputs.py and PlotCy.py, and one C++ file CAE.cpp.
+1. **Inputs.py :** It reads the data from CAE_1.xlsx and CAE_2.xlsx input files.
+2. **CAE.cpp :** This is a main code where magnetic field is calculated using derived equations.
+3. **PlotCy.py :** It generates 3D and contour plots.
+
 ## CAEB
 
 In most of the electromagnetic systems, the coils are arranged in a symmetric manner, for example, Tokamak. The CAEB — CAE Builder code takes advantage of the symmetry and minimizes the complexities of generating the input Excel files for the coils. The CAEB takes inputs for one coil and number of coils in a system, and generates an output file, Builder.xlsx with the data of all the coils.
