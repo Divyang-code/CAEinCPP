@@ -14,7 +14,7 @@ CAE code is written in Python and C++ programming languages.
 - Python 3 is required.
 - Required python libraries: numpy, pandas, scipy, matplotlib, xlsxwriter, xlrd (version 1.2.0).
 
-- To install these libraries run the following commands in terminal (for Ubuntu users):
+- Ubuntu users can install these libraries by running the following commands in terminal:
   - pip3 install numpy
   - pip3 install pandas
   - pip3 install tqdm
@@ -22,8 +22,7 @@ CAE code is written in Python and C++ programming languages.
   - pip3 install scipy
   - pip3 install matplotlib
   - pip3 install xlsxwriter
-
-Windows users can install these libraries via Command Prompt by replacing `pip3` with `pip`.
+- Windows users can install these libraries via Command Prompt by replacing `pip3` with `pip`.
 
 ### C++ requirement
 
