@@ -235,14 +235,14 @@ void WriteDataToCSV(int NoOfFieldPoints,
     
     ofstream MyCSVFile("MAG_DATA.csv");                                                 // Write data to MAG_DATA.csv file
 
-    MyCSVFile << "x (m)" << "\t" << "y (m)" << "\t" << "z (m)" << "\t"                  // first three colomns are for x, y, and z components of field points
-              << " " << "\t"                                                            // blank colomn
-              << "R (m)" << "\t" << "Theta (deg)" << "\t" << "z (m)" << "\t"            // field points in polar (cylindrical) fashion
-              << " " << "\t"
-              << "Bx (T)" << "\t" << "By (T)" << "\t" << "Bz (T)" << "\t"               // calculated cartesian magnetic field
-              << " " << "\t"
-              << "Br (T)" << "\t" << "Btheta (T)" << "\t" << "Bz (T)" << "\t"           // magnetic field in polar (cylindrical) fashion
-              << " " << "\t"
+    MyCSVFile << "x (m)" << "," << "y (m)" << "," << "z (m)" << ","                     // first three colomns are for x, y, and z components of field points
+              << " " << ","                                                             // blank colomn
+              << "R (m)" << "," << "Theta (deg)" << "," << "z (m)" << ","               // field points in polar (cylindrical) fashion
+              << " " << ","
+              << "Bx (T)" << "," << "By (T)" << "," << "Bz (T)" << ","                  // calculated cartesian magnetic field
+              << " " << ","
+              << "Br (T)" << "," << "Btheta (T)" << "," << "Bz (T)" << ","              // magnetic field in polar (cylindrical) fashion
+              << " " << ","
               << "B (T)" << "\n";                                                       // total magnetic field - magnitude
 
     for(int i = 0; i < NoOfFieldPoints; i++)
@@ -250,14 +250,14 @@ void WriteDataToCSV(int NoOfFieldPoints,
         tie(dummyBr, dummyBt) = PolarMag(PtTheta[i], Bx[i], By[i]);                     // call PolarMag to find the Br and Bt
         dummyB = pow( pow(Bx[i], 2) + pow(By[i], 2) + pow(Bz[i], 2), 0.5);              // magnitude of total magnetic field
 
-        MyCSVFile << PtX[i] << "\t" << PtY[i] << "\t" << PtZ[i] << "\t"
-                  << " " << "\t"
-                  << PtR[i] << "\t" << PtTheta[i]* 180/ Pi << "\t" << PtZ[i] << "\t"    // polar points are in degree
-                  << " " << "\t"
-                  << Bx[i] << "\t" << By[i] << "\t" << Bz[i] << "\t"
-                  << " " << "\t"
-                  << dummyBr << "\t" << dummyBt << "\t" << Bz[i] << "\t"
-                  << " " << "\t"
+        MyCSVFile << PtX[i] << "," << PtY[i] << "," << PtZ[i] << ","
+                  << " " << ","
+                  << PtR[i] << "," << PtTheta[i]* 180/ Pi << "," << PtZ[i] << ","       // polar points are in degree
+                  << " " << ","
+                  << Bx[i] << "," << By[i] << "," << Bz[i] << ","
+                  << " " << ","
+                  << dummyBr << "," << dummyBt << "," << Bz[i] << ","
+                  << " " << ","
                   << dummyB << "\n";
     }
     MyCSVFile.close();
