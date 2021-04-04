@@ -178,7 +178,7 @@ if __name__=='__main__':
     # Read magnetic field
     import pandas as pd
 
-    df = pd.read_csv('MAG_DATA.csv', sep='\t', lineterminator='\n')
+    df = pd.read_csv('MAG_DATA.csv', sep=',', lineterminator='\n')
     
     Bx = array(df['Bx (T)'])
     By = array(df['By (T)'])
