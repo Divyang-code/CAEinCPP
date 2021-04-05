@@ -261,9 +261,9 @@ if __name__=='__main__':
         ax.set_zlabel('Z (m)', fontsize = 12, fontweight = 'bold')
         
         data_ax = plt.axis('auto')
-        ax.set_xlim(max(data_ax), min(data_ax))
-        ax.set_ylim(max(data_ax), min(data_ax))
-        ax.set_zlim(max(data_ax), min(data_ax))
+        ax.set_xlim(min(data_ax), max(data_ax))
+        ax.set_ylim(min(data_ax), max(data_ax))
+        ax.set_zlim(min(data_ax), max(data_ax))
         
         plt.show()
         
