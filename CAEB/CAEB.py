@@ -53,7 +53,7 @@ class Coil:
         Rz = [0]
         
         # current density
-        J = [self.TurnsInCoil* self.I_in_1_turn/ (self.OuterRadius - self.InnerRadius)]
+        J = [self.TurnsInCoil* self.I_in_1_turn/ ((self.OuterRadius - self.InnerRadius)* self.thickness)]
         
         return xc, yc, zc, r_in, r_out, ang_i, ang_f, Thkns, Rx, Ry, Rz, J
 
