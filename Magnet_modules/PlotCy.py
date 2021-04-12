@@ -96,7 +96,7 @@ def draw_slab(ax, mp3d, center, operator, ver_org, J, need_curr_dir):
             ax.quiver( vertices_trnf[4][0], vertices_trnf[4][1], vertices_trnf[4][2], vertices_trnf[0][0] - vertices_trnf[4][0], vertices_trnf[0][1] - vertices_trnf[4][1], vertices_trnf[0][2] - vertices_trnf[4][2], normalize = True, color = 'yellow' )
 
 # Arcs
-def circle(ax, r, theta_S, theta_E, center, Euler):
+def circle(ax, r, theta_S, theta_E, center, Euler, I, need_curr_dir):
     ''' r       ---> radius of the circle
         theta_S ---> starting angle of the circle
         theta_E ---> ending angle of the circle
@@ -118,6 +118,16 @@ def circle(ax, r, theta_S, theta_E, center, Euler):
     Z = circle[2,:]
     
     ax.plot(X, Y, Z)
+
+    if need_curr_dir == 1:
+        if I > 0:
+            ax.quiver(X[0], Y[0], Z[0], 
+                      float( X[1] - X[0] ), float( Y[1] - Y[0] ), float( Z[1] - Z[0] ), 
+                      lw = 3, Color = 'yellow', normalize = True)
+        elif I < 0:
+            ax.quiver(X[-1], Y[-1], Z[-1], 
+                      float( X[-2] - X[-1] ), float( Y[-2] - Y[-1] ), float( Z[-2] - Z[-1] ), 
+                      lw = 3, Color = 'yellow', normalize = True)
      
 # roll to draw the cylindre
 def roll(ax, R, zi, zf, ang_i, ang_f, center, Euler):
@@ -146,7 +156,7 @@ def roll(ax, R, zi, zf, ang_i, ang_f, center, Euler):
     ax.plot_surface( x, y, z, alpha = 0.5, color = (0.1, 0.5, 1), linewidth=0.7, edgecolors='k' )
 
 # Disk part in cylindre
-def disk(ax, Ri, Rf, ang_i, ang_f, center, Euler, d):
+def disk(ax, Ri, Rf, ang_i, ang_f, center, Euler, d, J, need_curr_dir, flag_ra):
     
     r = array( [ Ri, Rf] )
     t = linspace( ang_i, ang_f, 50)
@@ -170,6 +180,17 @@ def disk(ax, Ri, Rf, ang_i, ang_f, center, Euler, d):
     z = z_rot + center[2]
     
     ax.plot_surface( x, y, z, alpha = 0.5, color = (0.1, 0.5, 1), linewidth=0.7, edgecolors='k' )
+    
+    if (need_curr_dir == 1) and (flag_ra == 'ra'):
+        if J > 0:
+            ax.quiver(x[1][0], y[1][0], z[1][0], 
+                    float( x[1][1] - x[1][0] ), float( y[1][1] - y[1][0] ), float( z[1][1] - z[1][0] ), 
+                    lw = 3, Color = 'yellow', normalize = True)
+        elif J < 0:
+            ax.quiver(x[1][-1], y[1][-1], z[1][-1], 
+                    float( x[1][-2] - x[1][-1] ), float( y[1][-2] - y[1][-1] ), float( z[1][-2] - z[1][-1] ), 
+                    lw = 3, Color = 'yellow', normalize = True)
+
 
 #%% Draw electro-magnets
 
@@ -213,32 +234,33 @@ if __name__=='__main__':
         # Circular Arc
         if a_Nmbr > 0:
 
-            from Inputs import a_a0, a_phy_1, a_phy_2, a_cnt_cart, a_operator
+            from Inputs import a_a0, a_phy_1, a_phy_2, a_cnt_cart, a_operator, a_I
             
             for i in range(0, a_Nmbr):
-                circle(ax, a_a0[i], a_phy_1[i], a_phy_2[i], a_cnt_cart[i].reshape(3,1), a_operator[i])
+                circle(ax, a_a0[i], a_phy_1[i], a_phy_2[i], a_cnt_cart[i].reshape(3,1), a_operator[i], a_I[i], need_curr_dir)
         
         # Ractangular arcs
         if ra_Nmbr > 0:
             
-            from Inputs import ra_r_inner, ra_r_outer, ra_operator, ra_tckns, ra_phy_1, ra_phy_2, ra_cnt_cart
+            from Inputs import ra_r_inner, ra_r_outer, ra_operator, \
+                               ra_tckns, ra_phy_1, ra_phy_2, ra_cnt_cart, ra_J, need_curr_dir
 
             for i in range(0, ra_Nmbr):
                 # roll
                 roll(ax, ra_r_inner[i], -ra_tckns[i]/2, ra_tckns[i]/2, ra_phy_1[i], ra_phy_2[i], ra_cnt_cart[i], ra_operator[i])
                 roll(ax, ra_r_outer[i], -ra_tckns[i]/2, ra_tckns[i]/2, ra_phy_1[i], ra_phy_2[i], ra_cnt_cart[i], ra_operator[i])
                 # disk
-                disk(ax, ra_r_inner[i], ra_r_outer[i], ra_phy_1[i], ra_phy_2[i], ra_cnt_cart[i], ra_operator[i], ra_tckns[i]/2)
-                disk(ax, ra_r_inner[i], ra_r_outer[i], ra_phy_1[i], ra_phy_2[i], ra_cnt_cart[i], ra_operator[i],-ra_tckns[i]/2)
+                disk(ax, ra_r_inner[i], ra_r_outer[i], ra_phy_1[i], ra_phy_2[i], ra_cnt_cart[i], ra_operator[i], ra_tckns[i]/2, ra_J[i], need_curr_dir, 'ra')
+                disk(ax, ra_r_inner[i], ra_r_outer[i], ra_phy_1[i], ra_phy_2[i], ra_cnt_cart[i], ra_operator[i],-ra_tckns[i]/2, ra_J[i], 0, 'ra')
 
         # Cylindrical wires
         if cy_Nmbr > 0:
 
-            from Inputs import cy_ro, cy_center, cy_operator, cy_l
+            from Inputs import cy_ro, cy_center, cy_operator, cy_l, cy_J
             
             for i in range(0, cy_Nmbr):
-                disk(ax, 0, cy_ro[i], 0, 2* pi, cy_center[i], cy_operator[i], cy_l[i]/2 )
-                disk(ax, 0, cy_ro[i], 0, 2* pi, cy_center[i], cy_operator[i],-cy_l[i]/2 )
+                disk(ax, 0, cy_ro[i], 0, 2* pi, cy_center[i], cy_operator[i], cy_l[i]/2, cy_J[i], 0, 'cy')
+                disk(ax, 0, cy_ro[i], 0, 2* pi, cy_center[i], cy_operator[i],-cy_l[i]/2, cy_J[i], 0, 'cy')
                 roll(ax, cy_ro[i],-cy_l[i]/2, cy_l[i]/2, 0, 2* pi, cy_center[i], cy_operator[i])
 
         B = array([Bx, By, Bz])
