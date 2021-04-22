@@ -68,6 +68,7 @@ def Euler(θ, φ, ψ):
 
 def Mr_Exit(*args):
     print('\033[1;31;40m ERROR!!! \033[0m : ' + ''.join(args) )
+    input('Press ENTER to exit')
     sys.exit(1)
 
 #%%
